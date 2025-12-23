@@ -17,26 +17,32 @@
   <p id="msg"></p>
 
   <script>
-    const supabaseUrl = 'https://jruvyldteoebjncldqm.supabase.co';
-    const supabaseKey = 'sb_publishable_9qDiK7N_veZo8IxX4w5DFw_JZOMD2iY';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+  const supabaseUrl = 'https://jruvyldteoebjncldqm.supabase.co';
+  const supabaseKey = 'sb_publishable_9qDiK7N_veZo8IxX4w5DFw_JZOMD2iY';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    async function login() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+  async function login() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
 
-      if (error) {
-        document.getElementById('msg').innerText = 'Erro no login';
-      } else {
-        window.location.href = 'dashboard.html';
-      }
+    if (error) {
+      document.getElementById('msg').innerText = error.message;
+      return;
     }
-  </script>
+
+    // ✅ Aguarda a sessão ser salva
+    document.getElementById('msg').innerText = 'Login OK...';
+
+    setTimeout(() => {
+      window.location.href = 'dashboard.html';
+    }, 800);
+  }
+</script>
 
 </body>
 </html>
