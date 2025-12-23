@@ -25,16 +25,16 @@
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+   const { data, error } = await supabase.auth.signInWithPassword({
+  email,
+  password
+});
 
-    if (error) {
-      document.getElementById('msg').innerText = error.message;
-      return;
-    }
-
+   if (error) {
+  document.getElementById('msg').innerText = error.message;
+} else {
+  window.location.href = 'dashboard.html';
+}
     // ✅ Aguarda a sessão ser salva
     document.getElementById('msg').innerText = 'Login OK...';
 
