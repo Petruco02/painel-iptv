@@ -18,8 +18,9 @@
   const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
   async function checkLogin() {
-    const { data } = await supabase.auth.getUser();
-    if (!data.user) {
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (!session) {
       window.location.href = 'index.html';
     }
   }
