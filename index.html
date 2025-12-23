@@ -14,27 +14,24 @@
   <input type="password" id="senha" placeholder="Senha">
   <br><br>
 
-  <button onclick="login()">Entrar</button>
+  <button id="btnLogin">Entrar</button>
 
   <p id="msg"></p>
 
-  <!-- IMPORTAÇÃO DO SUPABASE (APENAS UMA VEZ) -->
+  <!-- SUPABASE -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
-  <!-- SCRIPT PRINCIPAL -->
+  <!-- SCRIPT -->
   <script>
-    // ⚠️ COLE SUAS CHAVES AQUI
     const SUPABASE_URL = 'https://jruvyvldteoebjncldqm.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_9qDiK7N_veZo8IxX4w5DFw_JZOMD2iY';
 
-    // ⚠️ SUPABASE CRIADO UMA ÚNICA VEZ
     const supabase = window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_KEY
     );
 
-    // FUNÇÃO GLOBAL (o botão consegue chamar)
-    async function login() {
+    document.getElementById('btnLogin').addEventListener('click', async () => {
       const email = document.getElementById('email').value;
       const senha = document.getElementById('senha').value;
 
@@ -49,7 +46,7 @@
       } else {
         window.location.href = 'dashboard.html';
       }
-    }
+    });
   </script>
 
 </body>
