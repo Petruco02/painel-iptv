@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard IPTV</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<h1>Dashboard IPTV</h1>
+<p>Você está logado ✅</p>
+
+<button onclick="logout()">Sair</button>
+
+<script>
+  const supabaseUrl = 'https://jruvyldteoebjncldqm.supabase.co';
+  const supabaseKey = 'COLE_AQUI_SUA_SB_PUBLISHABLE';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  async function checkLogin() {
+    const { data } = await supabase.auth.getUser();
+    if (!data.user) {
+      window.location.href = 'index.html';
+    }
+  }
+
+  async function logout() {
+    await supabase.auth.signOut();
+    window.location.href = 'index.html';
+  }
+
+  checkLogin();
+</script>
+
+</body>
+</html>
