@@ -2,44 +2,55 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Painel IPTV</title>
+  <title>Login | Painel IPTV</title>
 </head>
 <body>
 
-<h1>Painel IPTV</h1>
+  <h2>Login - Painel IPTV</h2>
 
-<input id="email" placeholder="Email">
-<input id="senha" type="password" placeholder="Senha">
-<button onclick="login()">Entrar</button>
+  <input type="email" id="email" placeholder="Email">
+  <br><br>
 
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <input type="password" id="senha" placeholder="Senha">
+  <br><br>
 
-<script>
-const SUPABASE_URL = 'https://jruvyldteoebjncldqm.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_9qDiK7N_veZo8IxX4w5DFw_JZOMD2iY';
+  <button onclick="login()">Entrar</button>
 
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  <p id="msg"></p>
 
-async function login() {
-  const email = document.getElementById('email').value;
-  const senha = document.getElementById('senha').value;
+  <!-- IMPORTAÇÃO DO SUPABASE (APENAS UMA VEZ) -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: senha
-  });
+  <!-- SCRIPT PRINCIPAL -->
+  <script>
+    // ⚠️ COLE SUAS CHAVES AQUI
+    const SUPABASE_URL = 'https://jruvyvldteoebjncldqm.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_9qDiK7N_veZo8IxX4w5DFw_JZOMD2iY';
 
-  if (error) {
-    alert('Erro: ' + error.message);
-  } else {
-    alert('Login feito com sucesso!');
-    // depois vamos redirecionar para o dashboard
-  }
-}
-</script>
+    // ⚠️ SUPABASE CRIADO UMA ÚNICA VEZ
+    const supabase = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    // FUNÇÃO GLOBAL (o botão consegue chamar)
+    async function login() {
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: senha
+      });
+
+      if (error) {
+        document.getElementById('msg').innerText =
+          'Erro no login: ' + error.message;
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }
+  </script>
 
 </body>
 </html>
