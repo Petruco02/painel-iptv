@@ -2,46 +2,43 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Login | Painel IPTV</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Painel IPTV</title>
 </head>
 <body>
 
-  <h2>Login - Painel IPTV</h2>
+<h1>Painel IPTV</h1>
 
-  <input type="email" id="email" placeholder="Email"><br><br>
-  <input type="password" id="password" placeholder="Senha"><br><br>
+<input id="email" placeholder="Email">
+<input id="senha" type="password" placeholder="Senha">
+<button onclick="login()">Entrar</button>
 
-  <button onclick="login()">Entrar</button>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
-  <p id="msg"></p>
+<script>
+const SUPABASE_URL = 'https://jruvyldteoebjncldqm.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_9qDiK7N_veZo8IxX4w5DFw_JZOMD2iY';
 
-  <script>
-  const supabaseUrl = 'https://jruvyldteoebjncldqm.supabase.co';
-  const supabaseKey = 'sb_publishable_9qDiK7N_veZo8IxX4w5DFw_JZOMD2iY';
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-  async function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+async function login() {
+  const email = document.getElementById('email').value;
+  const senha = document.getElementById('senha').value;
 
-   const { data, error } = await supabase.auth.signInWithPassword({
-  email,
-  password
-});
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: senha
+  });
 
-   if (error) {
-  document.getElementById('msg').innerText = error.message;
-} else {
-  window.location.href = 'dashboard.html';
-}
-    // ✅ Aguarda a sessão ser salva
-    document.getElementById('msg').innerText = 'Login OK...';
-
-    setTimeout(() => {
-      window.location.href = 'dashboard.html';
-    }, 800);
+  if (error) {
+    alert('Erro: ' + error.message);
+  } else {
+    alert('Login feito com sucesso!');
+    // depois vamos redirecionar para o dashboard
   }
+}
 </script>
 
 </body>
